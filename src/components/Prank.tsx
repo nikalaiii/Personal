@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export const Prank = () => {
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -16,7 +16,7 @@ export const Prank = () => {
     return () => window.removeEventListener("resize", checkFullScreen);
   }, []);
 
-  const audioRef = useRef(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     if (scremmer && audioRef.current) {

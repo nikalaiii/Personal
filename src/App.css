@@ -1,3 +1,46 @@
+
+html {
+  --color-dark: orange;
+}
+
+.mainMenu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  width: 50%;
+  height: 25vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;  /* Вирівнює текст по вертикалі */
+  justify-content: center; /* Центрує текст по горизонталі */
+  width: 25%;
+  height: 25vh;
+  background-color: darkslateblue;
+  border: 5px solid white;
+  border-radius: 10px;
+  text-align: center;
+  color: black;
+}
+
+html.dark {
+  --color-dark: blue;
+}
+
+.header {
+  color: var(--color-dark);
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;

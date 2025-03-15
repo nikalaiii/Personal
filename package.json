@@ -1,7 +1,7 @@
 {
   "name": "personal-app",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "predeploy": "vite build",
@@ -24,7 +24,7 @@
     "react-i18next": "^15.4.1",
     "react-router-dom": "^7.3.0"
   },
-  "homepage": "https://github.com/nikalaiii/Personal.git",
+  "homepage": "https://nikalaiii.github.io/Personal",
   "devDependencies": {
     "@eslint/js": "^9.19.0",
     "@types/react": "^19.0.8",

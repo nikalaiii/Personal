@@ -1,20 +1,21 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { updateField } from "../../../features/formData";
 
 interface Props {
   title: string;
   titleName?: string;
   value: string;
   type: string;
-  onChange: (t: string, v: string) => void;
 }
 
 const TextInputComponent: React.FC<Props> = ({
   title,
   value,
-  onChange,
   type,
   titleName,
 }) => {
+  const dispatch = useDispatch();
   return (
     <div className="field">
       <label className="label">
@@ -26,7 +27,7 @@ const TextInputComponent: React.FC<Props> = ({
           className="input is-small"
           placeholder={`Напиши сюда ${type}`}
           value={value}
-          onChange={(e) => onChange(type, e.target.value)}
+          onChange={(e) => dispatch(updateField({key: type, value: e.target.value}))}
           required
         />
       </div>

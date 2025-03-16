@@ -147,3 +147,31 @@ h1 {
 }
 
 // #endregion CAPTCHA
+
+//#region PASSWORD
+
+  .password {
+    margin-top: 25vh;
+    border: none;
+
+    &__title {
+      color: black;
+      margin-bottom: 5vh;
+    }
+
+    &__input {
+      border-radius: 5px;
+      background-color: grey;
+
+      &::placeholder {
+        color: darkgray;
+      }
+    }
+
+    &__button {
+
+      margin-top: 3vh;
+    }
+  }
+
+//#endregion PASSSWORD

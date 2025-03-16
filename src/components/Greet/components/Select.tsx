@@ -1,14 +1,17 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { updateField } from "../../../features/formData";
 
 interface Props {
   title: string;
   type: string;
   options: string[];
   titleName?: string;
-  onChange: (t: string, v: string) => void;
 }
 
-export const Select: React.FC<Props> = ({ title, onChange, options, type, titleName }) => {
+export const Select: React.FC<Props> = ({ title, options, type, titleName }) => {
+  const dispatch = useDispatch();
+
   return (
     <div className="field">
       <label className="label">{title}
@@ -18,7 +21,7 @@ export const Select: React.FC<Props> = ({ title, onChange, options, type, titleN
       </label>
       <div className="control">
         <div className="select">
-          <select onChange={(e) => onChange(type, e.target.value)}>
+          <select onChange={(e) => dispatch(updateField({key: type, value: e.target.value}))}>
             <option value={""} selected disabled hidden>оберіть...</option>
             {options.map((opt) => {
               return <option key={opt} value={opt}>{opt}</option>;

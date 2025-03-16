@@ -6,38 +6,22 @@ import { Select } from "./components/Select";
 import { TextInput } from "./components/TextInput";
 import { ErrorMessage } from "./components/ErrorMessage";
 import { handleSubmit } from "./functions/handleSubmit";
+import { useSelector, useDispatch } from "react-redux";
 import { Captcha } from "./components/Captcha";
-import { Result } from "./components/Result";
-
-export interface FormState {
-  name: string;
-  email: string;
-  nation: string;
-  sex: string;
-  drink: string;
-  size: string;
-  game: string;
-  lang: string;
-}
+import { ErrorState, setError } from "../../features/errorSlice";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 export const Greeting: React.FC = () => {
-  const [error, setError] = useState({ name: null, message: null });
   const [captcha, setCaptcha] = useState<boolean>(false);
-  const [registered, setRegistered] = useState<boolean>(false);
-  const [formData, setFormData] = useState<FormState>({
-    name: "",
-    email: "",
-    nation: "",
-    sex: "",
-    drink: "",
-    size: "",
-    game: "",
-    lang: "",
-  });
+  const dispatch = useDispatch();
+  const formData = useSelector((state) => state.formData);
+  const error = useSelector(state => state.error);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const changeInfo = (newKey: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [newKey]: value }));
-  };
+  const changeError = (err: ErrorState) => {
+    dispatch(setError(err));
+  } 
 
   return (
     <section
@@ -55,16 +39,16 @@ export const Greeting: React.FC = () => {
         <ErrorMessage
           head={error.name}
           message={error.message}
-          onError={setError}
+          onError={changeError}
         />
       )}
 
       <div className="container">
         <h1 className="title has-text-centered" style={{ color: "black" }}>
-          {registered ? 'Вітаємо' : 'Реєстрація'}
+          {location.pathname === '/greeting/result' ? "Вітаємо" : "Реєстрація"}
         </h1>
-        {registered ? (
-          <Result formInfo={formData} />
+        {location.pathname === '/greeting/result' ? (
+          <Outlet />
         ) : (
           <form
             style={{
@@ -74,14 +58,13 @@ export const Greeting: React.FC = () => {
             className={classNames("box", "box custom-shadow")}
             onSubmit={(e) => {
               e.preventDefault();
-              handleSubmit(formData, setError, setCaptcha);
+              handleSubmit(formData, changeError, setCaptcha);
             }}
           >
             <TextInput
               title="Ваше "
               titleName="name"
               type="name"
-              onChange={changeInfo}
               value={formData.name}
             />
 
@@ -89,7 +72,6 @@ export const Greeting: React.FC = () => {
               title="Ваш "
               titleName="email"
               type="email"
-              onChange={changeInfo}
               value={formData.email}
             />
 
@@ -97,7 +79,6 @@ export const Greeting: React.FC = () => {
               title="Улюблена "
               titleName="game"
               type="game"
-              onChange={changeInfo}
               value={formData.game}
             />
 
@@ -106,7 +87,6 @@ export const Greeting: React.FC = () => {
                 title="Національність"
                 type="nation"
                 options={["Українець", "Поляк", "Русский", "Єврей"]}
-                onChange={changeInfo}
               />
 
               <Select
@@ -114,42 +94,39 @@ export const Greeting: React.FC = () => {
                 titleName="penis"
                 type="size"
                 options={["5-cm", "10+cm", "20+cm", "(π * 100) - 414"]}
-                onChange={changeInfo}
               />
             </div>
 
             <div className="wrapper" style={{ gap: "80px", marginTop: "30px" }}>
               <RadioSelect
                 type="sex"
-                onChange={changeInfo}
                 title="Стать"
                 queshions={["Maaan", "Baba", "інше", "dead inside"]}
               />
 
               <RadioSelect
                 type="drink"
-                onChange={changeInfo}
                 title="Чай, чи Кава?"
                 queshions={["чай", "кава", "інше", "живчик"]}
               />
 
               <RadioSelect
                 type="lang"
-                onChange={changeInfo}
                 title="C++/C# Чи JS/TS ???"
                 queshions={["C++", "C#", "JS", "TS"]}
               />
             </div>
 
             <button className="button is-primary is-small">Надіслати</button>
+            <button onClick={() => navigate('result')}>navigate</button>
           </form>
         )}
       </div>
 
-      {captcha && !registered && (
+      {captcha && (
         <>
           <div className="mask" />
-          <Captcha onSucces={setRegistered} onError={setError} />
+          <Captcha offCaptcha={setCaptcha} />
         </>
       )}
     </section>

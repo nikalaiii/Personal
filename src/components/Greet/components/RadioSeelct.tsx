@@ -1,7 +1,8 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { updateField } from "../../../features/formData";
 
 interface Props {
-  onChange: (t: string, v: string) => void;
   title: string;
   type: string;
   queshions: string[];
@@ -10,9 +11,11 @@ interface Props {
 export const RadioSelect: React.FC<Props> = ({
   title,
   queshions,
-  onChange,
+
   type,
 }) => {
+  const dispatch = useDispatch();
+
   return (
     <div className="field">
       <label className="label">{title}</label>
@@ -20,9 +23,9 @@ export const RadioSelect: React.FC<Props> = ({
         className="control"
         style={{
           display: "flex",
-          maxHeight: '100px',
-          flexWrap: 'wrap',
-          flexDirection: 'column',
+          maxHeight: "100px",
+          flexWrap: "wrap",
+          flexDirection: "column",
           gap: "20px",
         }}
       >
@@ -36,7 +39,7 @@ export const RadioSelect: React.FC<Props> = ({
               className="radio"
             >
               <input
-                onChange={(e) => onChange(type, e.target.value)}
+                onChange={(e) => dispatch(updateField({key: type, value: e.target.value}))}
                 type="radio"
                 name={type}
                 value={queshion}

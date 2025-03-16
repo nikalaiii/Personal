@@ -1,5 +1,8 @@
 import classNames from "classnames";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setError } from "../../../features/errorSlice";
+import { useNavigate } from "react-router-dom";
 
 const images: string[] = [
   "img/dibils/nikalaiii1.jpg",
@@ -11,12 +14,13 @@ const images: string[] = [
 ];
 
 type Props = {
-    onError: (newError: { name: string; message: string }) => void,
-    onSucces: (v: boolean) => void;
+  offCaptcha: (v: boolean) => void;
 }
 
-export const Captcha: React.FC<Props> = ({ onError, onSucces: onSucces }) => {
+export const Captcha: React.FC<Props> = ({ offCaptcha }) => {
   const [selectedImages, setSelectedImages] = useState<string[]>([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const hanldeClick = (img: string) => {
     if (selectedImages.find(el => el === img)) {
@@ -30,10 +34,11 @@ export const Captcha: React.FC<Props> = ({ onError, onSucces: onSucces }) => {
 
   const handleSubmit = () => {
     if (images.every(img => selectedImages.includes(img))) {
-        onSucces(true);
+      offCaptcha(false);
+      navigate('result');
         return;
     } else {
-        onError({ name: 'Помилка', message: 'Перчитайте умову завдання та спробуйте ще. Чи ви натурал?🤨'})
+      dispatch(setError({ name: 'Помилка', message: 'Перчитайте умову завдання та спробуйте ще. Чи ви натурал?🤨'}))
         return;
     }
   }

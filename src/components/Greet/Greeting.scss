@@ -61,13 +61,13 @@ h1 {
   z-index: 999;
   top: 20px;
   left: 20px;
-  background-color: #ffdddd; // Світло-червоний фон
-  border-left: 5px solid #ff3860; // Червона ліва межа для акценту
-  color: #721c24; // Темний текст для контрасту
+  background-color: #ffdddd;
+  border-left: 5px solid #ff3860;
+  color: #721c24;
   padding: 15px 20px;
   max-width: 400px;
   border-radius: 5px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); // Легка тінь
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   font-size: 1rem;
 
   &__button {
@@ -142,7 +142,7 @@ h1 {
   z-index: 2;
   top: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.2); // Прозорий білий фон
+  background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
 }
 
@@ -175,3 +175,10 @@ h1 {
   }
 
 //#endregion PASSSWORD
+
+.animTitle {
+  background-image: linear-gradient(to right, #16D1EE, #eb04f1);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

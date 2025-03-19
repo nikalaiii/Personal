@@ -74,7 +74,7 @@ export function hanldePassword(
   } else {
     if (password === '1234') {
       console.log('succes');
-      navigate('content');
+      navigate('/greeting/content');
       return;
     } else {
       onError({name: 'заєбав блять', message: 'ой блять, кароче напиши просто 1234'});

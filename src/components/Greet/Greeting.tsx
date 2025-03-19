@@ -9,7 +9,7 @@ import { handleSubmit } from "./functions/handleSubmit";
 import { useSelector, useDispatch } from "react-redux";
 import { Captcha } from "./components/Captcha";
 import { ErrorState, setError } from "../../features/errorSlice";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 export const Greeting: React.FC = () => {
   const [captcha, setCaptcha] = useState<boolean>(false);
@@ -17,7 +17,6 @@ export const Greeting: React.FC = () => {
   const formData = useSelector((state) => state.formData);
   const error = useSelector(state => state.error);
   const location = useLocation();
-  const navigate = useNavigate();
 
   const changeError = (err: ErrorState) => {
     dispatch(setError(err));
@@ -45,9 +44,9 @@ export const Greeting: React.FC = () => {
 
       <div className="container">
         <h1 className="title has-text-centered" style={{ color: "black" }}>
-          {location.pathname === '/greeting/result' ? "Вітаємо" : "Реєстрація"}
+          {(location.pathname === '/greeting/result' || location.pathname === '/greeting/content' ) ? "Вітаємо" : "Реєстрація"}
         </h1>
-        {location.pathname === '/greeting/result' ? (
+        {(location.pathname === '/greeting/result' || location.pathname === '/greeting/content' ) ? (
           <Outlet />
         ) : (
           <form
@@ -118,7 +117,6 @@ export const Greeting: React.FC = () => {
             </div>
 
             <button className="button is-primary is-small">Надіслати</button>
-            <button onClick={() => navigate('result')}>navigate</button>
           </form>
         )}
       </div>
